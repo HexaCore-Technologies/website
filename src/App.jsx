@@ -2,6 +2,7 @@ import Navbar from "./components/layout/Navbar";
 import Hero from "./components/sections/Hero";
 import Process from "./components/sections/Process";
 import Services from "./components/sections/Services";
+import TechStack from "./components/sections/TechStack";
 import WhyHexaCore from "./components/sections/WhyHexaCore";
 
 const placeholderSections = [
@@ -23,6 +24,7 @@ function App() {
       <WhyHexaCore />
       <Services />
       <Process />
+      <TechStack />
 
       {placeholderSections.map((section, index) => (
         <section
