@@ -1,5 +1,6 @@
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/sections/Hero";
+import WhyHexaCore from "./components/sections/WhyHexaCore";
 
 const placeholderSections = [
   {
@@ -25,6 +26,7 @@ function App() {
     <main className="min-h-screen bg-void-950 text-ink-50">
       <Navbar />
       <Hero />
+      <WhyHexaCore />
 
       {placeholderSections.map((section, index) => (
         <section
