@@ -1,10 +1,7 @@
 import Navbar from "./components/layout/Navbar";
+import Hero from "./components/sections/Hero";
 
 const placeholderSections = [
-  {
-    id: "home",
-    label: "Home",
-  },
   {
     id: "services",
     label: "Services",
@@ -27,6 +24,7 @@ function App() {
   return (
     <main className="min-h-screen bg-void-950 text-ink-50">
       <Navbar />
+      <Hero />
 
       {placeholderSections.map((section, index) => (
         <section
@@ -36,7 +34,7 @@ function App() {
         >
           <div className="mx-auto w-full max-w-7xl pt-28">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-cyber-400">
-              0{index + 1}
+              0{index + 2}
             </p>
             <h1 className="text-4xl font-semibold sm:text-6xl">{section.label}</h1>
           </div>
