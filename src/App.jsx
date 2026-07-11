@@ -1,13 +1,10 @@
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/sections/Hero";
+import Process from "./components/sections/Process";
 import Services from "./components/sections/Services";
 import WhyHexaCore from "./components/sections/WhyHexaCore";
 
 const placeholderSections = [
-  {
-    id: "process",
-    label: "Process",
-  },
   {
     id: "portfolio",
     label: "Portfolio",
@@ -25,6 +22,7 @@ function App() {
       <Hero />
       <WhyHexaCore />
       <Services />
+      <Process />
 
       {placeholderSections.map((section, index) => (
         <section
@@ -34,7 +32,7 @@ function App() {
         >
           <div className="mx-auto w-full max-w-7xl pt-28">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-cyber-400">
-              0{index + 3}
+              0{index + 4}
             </p>
             <h1 className="text-4xl font-semibold sm:text-6xl">{section.label}</h1>
           </div>
