@@ -96,7 +96,7 @@ function WhyHexaCore() {
         />
 
         <motion.div
-          className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:gap-5"
+          className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:gap-6"
           variants={shouldReduceMotion ? reducedGridVariants : gridVariants}
         >
           {reasons.map((reason) => (
@@ -104,15 +104,16 @@ function WhyHexaCore() {
               <Card
                 interactive
                 padding="lg"
-                className="group h-full min-h-72 overflow-hidden"
+                className="group h-full min-h-[18rem] overflow-hidden"
                 aria-label={reason.title}
               >
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyber-400/10 blur-3xl" />
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cyber-400/15 blur-3xl" />
+                  <div className="absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-violet-400/10 blur-3xl" />
                 </div>
 
                 <motion.div
-                  className="mb-8 grid size-14 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] text-2xl shadow-glow"
+                  className="mb-8 grid size-16 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] text-3xl shadow-glow"
                   whileHover={shouldReduceMotion ? undefined : { scale: 1.06, rotate: -3 }}
                   transition={{ type: "spring", stiffness: 320, damping: 20 }}
                   aria-hidden="true"
@@ -120,8 +121,8 @@ function WhyHexaCore() {
                   {reason.icon}
                 </motion.div>
 
-                <h3 className="text-2xl font-semibold text-ink-50">{reason.title}</h3>
-                <p className="mt-4 text-pretty text-base leading-7 text-ink-300">
+                <h3 className="text-2xl font-semibold tracking-tight text-ink-50">{reason.title}</h3>
+                <p className="mt-3 text-pretty text-base leading-7 text-ink-300">
                   {reason.description}
                 </p>
               </Card>

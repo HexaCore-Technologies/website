@@ -1,20 +1,12 @@
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
 import Process from "./components/sections/Process";
 import Services from "./components/sections/Services";
 import TechStack from "./components/sections/TechStack";
 import WhyHexaCore from "./components/sections/WhyHexaCore";
-
-const placeholderSections = [
-  {
-    id: "portfolio",
-    label: "Portfolio",
-  },
-  {
-    id: "contact",
-    label: "Contact",
-  },
-];
+import FAQ from "./components/sections/FAQ";
+import ContactCTA from "./components/sections/ContactCTA";
 
 function App() {
   return (
@@ -25,21 +17,9 @@ function App() {
       <Services />
       <Process />
       <TechStack />
-
-      {placeholderSections.map((section, index) => (
-        <section
-          id={section.id}
-          key={section.id}
-          className="flex min-h-screen items-center border-b border-white/10 px-container"
-        >
-          <div className="mx-auto w-full max-w-7xl pt-28">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-cyber-400">
-              0{index + 4}
-            </p>
-            <h1 className="text-4xl font-semibold sm:text-6xl">{section.label}</h1>
-          </div>
-        </section>
-      ))}
+      <FAQ />
+      <ContactCTA />
+      <Footer />
     </main>
   );
 }

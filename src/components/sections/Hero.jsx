@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 import Button from "../ui/Button";
@@ -35,9 +35,129 @@ const visualVariants = {
   },
 };
 
-function Hero() {
-  const shouldReduceMotion = useReducedMotion();
+const codeLineVariants = {
+  hidden: { opacity: 0, x: -12 },
+  visible: (i) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, delay: 0.6 + i * 0.12, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
+const statusVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.4, delay: 1.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const cursorBlink = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: [0, 1, 0],
+    transition: { duration: 1.2, repeat: Infinity, ease: "easeInOut" },
+  },
+};
+
+const codeLines = [
+  { indent: 0, color: "text-violet-400", text: "import { build, deploy } from 'hexacore';" },
+  { indent: 0, color: "text-ink-100", text: "const project = {" },
+  { indent: 2, color: "text-cyber-400", text: "name: 'AI Platform'," },
+  { indent: 2, color: "text-gold-300", text: "stack: ['React', 'Node', 'Python']," },
+  { indent: 2, color: "text-ink-100", text: "scale: 'auto'," },
+  { indent: 0, color: "text-ink-100", text: "};" },
+  { indent: 0, color: "text-ink-100", text: "" },
+  { indent: 0, color: "text-rose-400", text: "const result = await deploy(project);" },
+  { indent: 0, color: "text-lime-300", text: "// → Build successful in 2.4s" },
+];
+
+function CodeEditor() {
+  return (
+    <div className="relative mx-auto aspect-[4/3] w-full max-w-[34rem] overflow-hidden rounded-2xl border border-white/12 bg-void-900/90 shadow-soft backdrop-blur-2xl lg:max-w-none">
+      {/* Window chrome */}
+      <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
+        <span className="size-2.5 rounded-full bg-rose-400/70" />
+        <span className="size-2.5 rounded-full bg-gold-300/70" />
+        <span className="size-2.5 rounded-full bg-lime-300/70" />
+        <span className="ml-3 text-xs font-medium text-ink-500">dashboard.tsx — HexaCore Studio</span>
+      </div>
+
+      {/* Code content */}
+      <div className="p-4 sm:p-5">
+        {/* Status bar */}
+        <motion.div
+          className="mb-4 flex items-center gap-2 rounded-lg border border-white/8 bg-white/[0.04] px-3 py-2"
+          variants={statusVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <span className="relative flex size-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime-300 opacity-60" />
+            <span className="relative inline-flex size-2 rounded-full bg-lime-300" />
+          </span>
+          <span className="text-xs font-medium text-lime-300">System Ready</span>
+          <span className="ml-auto text-[10px] text-ink-500">v3.2.1</span>
+        </motion.div>
+
+        {/* Code lines */}
+        <div className="space-y-1 font-mono text-xs leading-6 sm:text-sm">
+          {codeLines.map((line, index) => (
+            <motion.div
+              key={index}
+              className="flex"
+              custom={index}
+              variants={codeLineVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <span className="mr-3 w-6 text-right text-[10px] text-ink-700 select-none sm:w-8">
+                {index + 1}
+              </span>
+              <span className={`${line.color} ${line.indent > 0 ? `ml-${line.indent}` : ""}`}>
+                {" ".repeat(line.indent)}{line.text}
+              </span>
+              {index === codeLines.length - 1 && (
+                <motion.span
+                  className="ml-px inline-block h-4 w-2 bg-cyber-400"
+                  variants={cursorBlink}
+                  initial="hidden"
+                  animate="visible"
+                  aria-hidden="true"
+                />
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom stats */}
+        <motion.div
+          className="mt-4 flex items-center gap-4 border-t border-white/8 pt-3 text-[10px] text-ink-500"
+          variants={statusVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <span className="flex items-center gap-1">
+            <span className="size-1.5 rounded-full bg-cyber-400" />
+            Lint passed
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="size-1.5 rounded-full bg-violet-400" />
+            Tests: 42/42
+          </span>
+          <span className="ml-auto">CPU: 12% · MEM: 34%</span>
+        </motion.div>
+      </div>
+
+      {/* Glow overlay */}
+      <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-cyber-400/10 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-violet-400/10 blur-3xl" aria-hidden="true" />
+    </div>
+  );
+}
+
+function Hero() {
   return (
     <section
       id="home"
@@ -77,28 +197,31 @@ function Hero() {
           <motion.h1
             id="hero-heading"
             variants={itemVariants}
-            className="mt-6 max-w-5xl text-balance font-display text-5xl font-semibold leading-[0.95] tracking-normal text-ink-50 sm:text-7xl lg:text-8xl"
+            className="mt-6 max-w-5xl text-balance font-display text-5xl font-semibold leading-[0.95] tracking-tight text-ink-50 sm:text-7xl lg:text-8xl"
           >
             We build polished software that feels inevitable.
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
-            className="mt-6 max-w-2xl text-pretty text-base leading-8 text-ink-300 sm:text-xl"
+            className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-ink-300 sm:text-xl sm:leading-relaxed"
           >
             HexaCore partners with ambitious teams to design, engineer, and ship premium digital products with the speed of a startup and the craft of a world-class product studio.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <motion.div variants={itemVariants} className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Button as="a" href="#contact" variant="accent" size="lg" iconRight={ArrowRight}>
               Start a Project
             </Button>
-            <Button as="a" href="#portfolio" variant="secondary" size="lg">
-              View Work
+            <Button as="a" href="#process" variant="secondary" size="lg" onClick={(event) => {
+              event.preventDefault();
+              document.getElementById("process")?.scrollIntoView({ behavior: "smooth" });
+            }}>
+              View Process
             </Button>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="mt-12">
+          <motion.div variants={itemVariants} className="mt-14">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">
               Trusted technologies
             </p>
@@ -106,7 +229,7 @@ function Hero() {
               {technologies.map((technology) => (
                 <span
                   key={technology}
-                  className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 text-sm font-medium text-ink-300"
+                  className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 text-sm font-medium text-ink-300 transition-colors duration-300 hover:border-cyber-400/20 hover:bg-cyber-400/5 hover:text-ink-100"
                 >
                   {technology}
                 </span>
@@ -119,26 +242,10 @@ function Hero() {
           variants={visualVariants}
           initial="hidden"
           animate="visible"
-          className="relative mx-auto aspect-square w-full max-w-[34rem] lg:max-w-none"
+          className="relative"
           aria-hidden="true"
         >
-          <div className="absolute inset-8 rounded-full border border-white/10 bg-white/[0.04] shadow-violet backdrop-blur-2xl" />
-          <motion.div
-            className="absolute inset-16 rounded-[2rem] border border-cyber-400/20 bg-void-900/70 shadow-glow"
-            animate={shouldReduceMotion ? undefined : { y: [0, -10, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute left-[18%] top-[20%] h-20 w-20 rounded-2xl border border-white/15 bg-white/[0.08] backdrop-blur-xl"
-            animate={shouldReduceMotion ? undefined : { scale: [1, 1.04, 1] }}
-            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-[22%] right-[14%] h-28 w-28 rounded-full border border-violet-400/25 bg-violet-400/10 blur-[1px]"
-            animate={shouldReduceMotion ? undefined : { y: [0, 12, 0] }}
-            transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <div className="absolute inset-1/2 size-28 -translate-x-1/2 -translate-y-1/2 rounded-full accent-gradient shadow-glow" />
+          <CodeEditor />
         </motion.div>
       </Container>
     </section>

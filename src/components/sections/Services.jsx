@@ -137,7 +137,7 @@ function Services() {
         />
 
         <motion.div
-          className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-5"
+          className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-6"
           variants={shouldReduceMotion ? reducedListVariants : gridVariants}
         >
           {services.map((service) => (
@@ -152,13 +152,13 @@ function Services() {
                 className="group flex h-full min-h-[25rem] flex-col"
                 aria-label={service.title}
               >
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-cyber-400/10 blur-3xl" />
-                  <div className="absolute -bottom-16 left-10 h-32 w-32 rounded-full bg-violet-400/10 blur-3xl" />
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="absolute -right-14 -top-14 h-48 w-48 rounded-full bg-cyber-400/15 blur-3xl" />
+                  <div className="absolute -bottom-16 left-10 h-36 w-36 rounded-full bg-violet-400/12 blur-3xl" />
                 </div>
 
                 <motion.div
-                  className="mb-7 grid size-14 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] text-2xl shadow-glow"
+                  className="mb-8 grid size-16 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] text-3xl shadow-glow"
                   whileHover={shouldReduceMotion ? undefined : { scale: 1.06, rotate: -3 }}
                   transition={{ type: "spring", stiffness: 320, damping: 20 }}
                   aria-hidden="true"
@@ -166,20 +166,20 @@ function Services() {
                   {service.icon}
                 </motion.div>
 
-                <h3 className="text-2xl font-semibold text-ink-50">{service.title}</h3>
-                <p className="mt-4 text-pretty text-base leading-7 text-ink-300">
+                <h3 className="text-2xl font-semibold tracking-tight text-ink-50">{service.title}</h3>
+                <p className="mt-3 text-pretty text-base leading-7 text-ink-300">
                   {service.description}
                 </p>
 
                 <motion.ul
-                  className="mt-7 flex flex-wrap gap-2"
+                  className="mt-8 flex flex-wrap gap-2"
                   variants={shouldReduceMotion ? reducedListVariants : chipListVariants}
                   aria-label={`${service.title} technologies`}
                 >
                   {service.technologies.map((technology) => (
                     <motion.li
                       key={technology}
-                      className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 text-sm font-medium text-ink-300"
+                      className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 text-xs font-medium text-ink-300 transition-all duration-300 hover:border-cyber-400/30 hover:bg-cyber-400/8 hover:text-cyber-400"
                       variants={shouldReduceMotion ? undefined : chipVariants}
                     >
                       {technology}
@@ -194,7 +194,7 @@ function Services() {
                 >
                   Learn More
                   <ArrowRight
-                    className="size-4 transition-transform duration-300 group-hover:translate-x-1"
+                    className="size-4 transition-all duration-300 group-hover:translate-x-1.5 group-hover:scale-110"
                     aria-hidden="true"
                   />
                 </a>

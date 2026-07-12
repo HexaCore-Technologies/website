@@ -12,8 +12,12 @@ export const navLinks = [
     title: "Process",
   },
   {
-    id: "portfolio",
-    title: "Portfolio",
+    id: "tech-stack",
+    title: "Tech Stack",
+  },
+  {
+    id: "faq",
+    title: "FAQ",
   },
   {
     id: "contact",

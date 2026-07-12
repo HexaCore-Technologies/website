@@ -116,15 +116,18 @@ function Process() {
         />
 
         <motion.ol
-          className="relative mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-10"
+          className="relative mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-12"
           variants={shouldReduceMotion ? reducedListVariants : timelineVariants}
         >
+          {/* Vertical connector (mobile) */}
           <li
-            className="pointer-events-none absolute left-8 top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-cyber-400/30 to-transparent max-sm:block"
+            className="pointer-events-none absolute left-8 top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-cyber-400/40 to-transparent max-sm:block"
             aria-hidden="true"
           />
+
+          {/* Horizontal connector (desktop) */}
           <li
-            className="pointer-events-none absolute left-0 right-0 top-[calc(50%-1px)] hidden h-px bg-gradient-to-r from-transparent via-cyber-400/25 to-transparent lg:block"
+            className="pointer-events-none absolute left-0 right-0 top-[calc(50%-1px)] hidden h-px bg-gradient-to-r from-transparent via-cyber-400/35 to-transparent lg:block"
             aria-hidden="true"
           />
 
@@ -140,23 +143,31 @@ function Process() {
                 className="group h-full min-h-72"
                 aria-label={`${step.number}. ${step.title}`}
               >
+                {/* Connector dots */}
                 {index < processSteps.length - 1 && (
-                  <span
-                    className="absolute -right-5 top-1/2 hidden h-px w-5 bg-cyber-400/30 lg:block"
-                    aria-hidden="true"
-                  />
+                  <>
+                    <span
+                      className="absolute -right-3 top-1/2 hidden size-2 -translate-y-1/2 rounded-full bg-cyber-400/40 shadow-[0_0_8px_rgba(83,224,255,0.2)] lg:block"
+                      aria-hidden="true"
+                    />
+                    <span
+                      className="absolute -bottom-3 left-1/2 hidden size-2 -translate-x-1/2 rounded-full bg-cyber-400/40 shadow-[0_0_8px_rgba(83,224,255,0.2)] max-sm:block"
+                      aria-hidden="true"
+                    />
+                  </>
                 )}
 
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyber-400/10 blur-3xl" />
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-cyber-400/15 blur-3xl" />
+                  <div className="absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-violet-400/10 blur-3xl" />
                 </div>
 
                 <div className="mb-8 flex items-start justify-between gap-4">
-                  <span className="text-5xl font-semibold leading-none text-white/10">
+                  <span className="text-5xl font-semibold leading-none text-white/10 transition-colors duration-300 group-hover:text-cyber-400/20">
                     {step.number}
                   </span>
                   <motion.span
-                    className="grid size-14 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] text-2xl shadow-glow"
+                    className="grid size-16 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] text-3xl shadow-glow"
                     whileHover={shouldReduceMotion ? undefined : { scale: 1.06, rotate: -3 }}
                     transition={{ type: "spring", stiffness: 320, damping: 20 }}
                     aria-hidden="true"
@@ -165,8 +176,8 @@ function Process() {
                   </motion.span>
                 </div>
 
-                <h3 className="text-2xl font-semibold text-ink-50">{step.title}</h3>
-                <p className="mt-4 text-pretty text-base leading-7 text-ink-300">
+                <h3 className="text-2xl font-semibold tracking-tight text-ink-50">{step.title}</h3>
+                <p className="mt-3 text-pretty text-base leading-7 text-ink-300">
                   {step.description}
                 </p>
               </Card>
